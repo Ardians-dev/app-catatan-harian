@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lihat Catatan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .tombol {
+        border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <header class="bg-white shadow-md">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-blue-600">Catatan Harian</h1>
+    </div>
+  </header>
+  
+  <div class="mt-10">
+      <a href="/" class="tombol ml-6 text-white hover:text-blue-600 font-medium bg-blue-600 p-2"><- Kembali</a>
+  </div>
+
+  <section class="container mx-auto px-4 py-10">
+    <h2 class="text-3xl font-bold mb-6 text-center">Daftar Catatan</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }} text-center p-2">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <ul class="space-y-4">
+        {% if catatan %}
+            {% for c in catatan %}
+                <li class="c bg-white p-4 rounded shadow">
+                    <h3 class="font-bold text-xl">{{ c.judul }}</h3>
+                    <p class="text-gray-600 pt-4 pb-6">{{ c.isi_catatan }}</p>
+                    <a href="/edit/{{ c.id }}">✏️ Edit</a> |
+                    <a href="/delete/{{ c.id }}" onclick="return confirm('Yakin ingin menghapus?')">🗑️ Hapus</a>
+                </li>
+            {% endfor %}
+        {% else %}
+            <h3 class="text-center">Belum Ada Catatan</h3>
+        {% endif %}
+        <h3 class="tombol text-center bg-blue-600 p-2 text-white"><a href="/tambah">➕ Tambah</a></h3>
+    </ul>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit Catatan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .tombol {
+        border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <header class="bg-white shadow-md">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-blue-600">Catatan Harian</h1>
+    </div>
+  </header>
+
+    <div class="mt-10">
+      <a href="/catatan" class="tombol ml-6 text-white hover:text-blue-600 font-medium bg-blue-600 p-2"><- Kembali</a>
+    </div>
+
+  <section class="container mx-auto px-4 py-10">
+    <h2 class="text-3xl font-bold mb-6">Edit Catatan</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }} text-center">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form class="bg-white p-6 rounded shadow space-y-4" method="POST">
+      <div>
+        <label class="block text-gray-700 font-medium">Judul</label>
+        <input name="judul" type="text" class="w-full mt-1 p-2 border rounded" value="{{ catat.judul }}" required />
+      </div>
+      <div>
+        <label class="block text-gray-700 font-medium">Isi Catatan</label>
+        <textarea name="isi_catatan" class="w-full mt-1 p-2 border rounded" rows="6">{{ catat.isi_catatan }}</textarea>
+      </div>
+      <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Simpan Perubahan</button>
+    </form>
+  </section>
+
+
+</body>
+</html>
